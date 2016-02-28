@@ -12,6 +12,7 @@ extension Double {
     var asLocaleCurrency:String {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
+        formatter.minimumFractionDigits = 2
         formatter.locale = NSLocale.currentLocale()
         return formatter.stringFromNumber(self)!
     }

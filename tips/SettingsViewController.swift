@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var normalField: UITextField!
     @IBOutlet weak var goodField: UITextField!
 
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let settings = Settings()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,21 +23,15 @@ class SettingsViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        badField.text = "\(defaults.integerForKey(Constants.KEY_TIP_BAD))";
-        normalField.text = "\(defaults.integerForKey(Constants.KEY_TIP_NORMAL))";
-        goodField.text = "\(defaults.integerForKey(Constants.KEY_TIP_GOOD))";
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        badField.text = "\(settings.tipPercentageForBadQuality)";
+        normalField.text = "\(settings.tipPercentageForNormalQuality)";
+        goodField.text = "\(settings.tipPercentageForGoodQuality)";
     }
     
     @IBAction func onSaveClicked(sender: AnyObject) {
-        defaults.setInteger(NSString(string: badField.text!).integerValue, forKey: Constants.KEY_TIP_BAD)
-        defaults.setInteger(NSString(string: normalField.text!).integerValue, forKey: Constants.KEY_TIP_NORMAL)
-        defaults.setInteger(NSString(string: goodField.text!).integerValue, forKey: Constants.KEY_TIP_GOOD)
-        defaults.synchronize()
+        settings.tipPercentageForBadQuality = NSString(string: badField.text!).integerValue
+        settings.tipPercentageForNormalQuality = NSString(string: normalField.text!).integerValue
+        settings.tipPercentageForGoodQuality = NSString(string: goodField.text!).integerValue
         self.navigationController?.popViewControllerAnimated(true)
     }
 
@@ -54,5 +48,4 @@ class SettingsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
