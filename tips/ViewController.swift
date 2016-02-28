@@ -27,8 +27,11 @@ class ViewController: UIViewController {
         
         let lastBillTimestamp = defaults.doubleForKey(Constants.KEY_BILL_TS)
         if (lastBillTimestamp + Constants.BILL_REMEMBER_WITHIN >= NSDate().timeIntervalSince1970) {
-            billField.text = "\(defaults.doubleForKey(Constants.KEY_BILL))"
+            billField.text = "\(defaults.doubleForKey(Constants.KEY_BILL).asLocaleCurrency)"
         }
+        
+        billField.becomeFirstResponder()
+        billField.selectAll(billField)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -75,8 +78,8 @@ class ViewController: UIViewController {
         let tip = billAmount * Double(tipPercentage) / 100.0
         let total = billAmount + tip
         
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        tipLabel.text = tip.asLocaleCurrency
+        totalLabel.text = total.asLocaleCurrency
     }
 }
 
