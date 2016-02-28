@@ -23,9 +23,9 @@ class SettingsViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        badField.text = "\(defaults.integerForKey("tip_bad"))";
-        normalField.text = "\(defaults.integerForKey("tip_normal"))";
-        goodField.text = "\(defaults.integerForKey("tip_good"))";
+        badField.text = "\(defaults.integerForKey(Constants.KEY_TIP_BAD))";
+        normalField.text = "\(defaults.integerForKey(Constants.KEY_TIP_NORMAL))";
+        goodField.text = "\(defaults.integerForKey(Constants.KEY_TIP_GOOD))";
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,11 +34,17 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func onSaveClicked(sender: AnyObject) {
-        defaults.setInteger(NSString(string: badField.text!).integerValue, forKey: "tip_bad")
-        defaults.setInteger(NSString(string: normalField.text!).integerValue, forKey: "tip_normal")
-        defaults.setInteger(NSString(string: goodField.text!).integerValue, forKey: "tip_good")
+        defaults.setInteger(NSString(string: badField.text!).integerValue, forKey: Constants.KEY_TIP_BAD)
+        defaults.setInteger(NSString(string: normalField.text!).integerValue, forKey: Constants.KEY_TIP_NORMAL)
+        defaults.setInteger(NSString(string: goodField.text!).integerValue, forKey: Constants.KEY_TIP_GOOD)
+        defaults.synchronize()
         self.navigationController?.popViewControllerAnimated(true)
     }
+
+    @IBAction func onTap(sender: AnyObject) {
+        view.endEditing(true)
+    }
+
     /*
     // MARK: - Navigation
 

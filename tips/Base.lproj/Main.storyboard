@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Tip Calculator-->
+        <!--Tips-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="tips" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,7 +48,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="JeK-KY-Bcm">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" id="JeK-KY-Bcm">
                                 <rect key="frame" x="112" y="87" width="188" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -82,7 +82,7 @@
                             <outletCollection property="gestureRecognizers" destination="ByZ-kB-7Wx" appends="YES" id="q1J-Zb-41f"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Tip Calculator" id="usz-ew-f6S">
+                    <navigationItem key="navigationItem" title="Tips" id="usz-ew-f6S">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="3iM-kD-mrL">
                             <connections>
                                 <segue destination="APx-Sf-9ol" kind="push" id="w7V-Go-dLW"/>
@@ -182,6 +182,10 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="UWW-eK-W2v" appends="YES" id="xlI-IW-rUd"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="WUI-9D-KEM">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="fHX-qb-l7V">
@@ -197,6 +201,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Jo-wt-nSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="UWW-eK-W2v">
+                    <connections>
+                        <action selector="onTap:" destination="APx-Sf-9ol" id="Khl-UK-SRd"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1074" y="291"/>
         </scene>

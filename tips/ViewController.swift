@@ -13,28 +13,35 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
-    var tipPercentages = [15, 20, 25]
+
+    var tipPercentages = [Constants.DEFAULT_TIP_BAD, Constants.DEFAULT_TIP_NORMAL, Constants.DEFAULT_TIP_GOOD]
     let defaults = NSUserDefaults.standardUserDefaults()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (defaults.integerForKey("tip_bad") == 0) {
-            defaults.setInteger(15, forKey: "tip_bad")
-            defaults.setInteger(20, forKey: "tip_normal")
-            defaults.setInteger(25, forKey: "tip_good")
+        if (defaults.integerForKey(Constants.KEY_TIP_BAD) == 0) {
+            defaults.setInteger(Constants.DEFAULT_TIP_BAD, forKey: Constants.KEY_TIP_BAD)
+            defaults.setInteger(Constants.DEFAULT_TIP_NORMAL, forKey: Constants.KEY_TIP_NORMAL)
+            defaults.setInteger(Constants.DEFAULT_TIP_GOOD, forKey: Constants.KEY_TIP_GOOD)
+        }
+        
+        let lastBillTimestamp = defaults.doubleForKey(Constants.KEY_BILL_TS)
+        if (lastBillTimestamp + Constants.BILL_REMEMBER_WITHIN >= NSDate().timeIntervalSince1970) {
+            billField.text = "\(defaults.doubleForKey(Constants.KEY_BILL))"
         }
     }
     
     override func viewWillAppear(animated: Bool) {
-        let tipPercentageBad = defaults.integerForKey("tip_bad")
-        let tipPercentageNormal = defaults.integerForKey("tip_normal")
-        let tipPercentageGood = defaults.integerForKey("tip_good")
+        let tipPercentageBad = defaults.integerForKey(Constants.KEY_TIP_BAD)
+        let tipPercentageNormal = defaults.integerForKey(Constants.KEY_TIP_NORMAL)
+        let tipPercentageGood = defaults.integerForKey(Constants.KEY_TIP_GOOD)
         tipPercentages = [tipPercentageBad, tipPercentageNormal, tipPercentageGood]
 
         tipControl.setTitle("\(tipPercentageBad)%", forSegmentAtIndex: 0)
         tipControl.setTitle("\(tipPercentageNormal)%", forSegmentAtIndex: 1)
         tipControl.setTitle("\(tipPercentageGood)%", forSegmentAtIndex: 2)
-        tipControl.selectedSegmentIndex = defaults.integerForKey("tip_index")
+        tipControl.selectedSegmentIndex = defaults.integerForKey(Constants.KEY_TIP_INDEX)
+        updateTip()
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,7 +49,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onEditingChanged(sender: AnyObject) {
+        saveBillAmount();
         updateTip();
+    }
+    
+    func saveBillAmount() {
+        let billAmount = NSString(string: billField.text!).doubleValue
+        defaults.setDouble(billAmount, forKey: Constants.KEY_BILL)
+        defaults.setDouble(NSDate().timeIntervalSince1970, forKey: Constants.KEY_BILL_TS)
     }
 
     @IBAction func onTap(sender: AnyObject) {
@@ -54,7 +68,7 @@ class ViewController: UIViewController {
     }
     
     func updateTip() {
-        defaults.setInteger(tipControl.selectedSegmentIndex, forKey: "tip_index")
+        defaults.setInteger(tipControl.selectedSegmentIndex, forKey: Constants.KEY_TIP_INDEX)
         defaults.synchronize()
         let tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
         let billAmount = NSString(string: billField.text!).doubleValue
