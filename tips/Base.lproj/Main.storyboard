@@ -55,6 +55,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 <connections>
                                     <action selector="onEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="r5m-wb-hDG"/>
+                                    <action selector="onEditingEnded:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="6mG-PS-gYh"/>
                                 </connections>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="ZTK-It-lPL">

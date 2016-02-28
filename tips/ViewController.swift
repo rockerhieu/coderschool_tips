@@ -55,6 +55,10 @@ class ViewController: UIViewController {
         saveBillAmount();
         updateTip();
     }
+
+    @IBAction func onEditingEnded(sender: AnyObject) {
+        billField.text = "\(NSString(string: billField.text!).doubleValue.asLocaleCurrency)"
+    }
     
     func saveBillAmount() {
         let billAmount = NSString(string: billField.text!).doubleValue
